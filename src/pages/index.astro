@@ -85,13 +85,11 @@ const mixes = Object.values(mixFiles)
   return (
           <div class="mix-card">
             <div class="mix-art">
-              <span>K!SH</span>
-              <small>SELECTED MIX / {String(index + 1).padStart(3, '0')}</small>
-            </div>
-            <div class="mix-details">
-              <p class="kicker">FEATURED DJ MIX</p>
+              <p class="kicker">FEATURED DJ MIX / {String(index + 1).padStart(3, '0')}</p>
               <h3>{mix.title}</h3>
               <p>{mix.description}</p>
+            </div>
+            <div class="mix-details">
               {soundcloudEmbed ? (
                 <iframe
                   title={`K!SH SoundCloud player - ${mix.title}`}
