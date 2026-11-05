@@ -27,7 +27,9 @@ const mixes = Object.values(mixFiles)
   </head>
   <body>
     <header class="site-header">
-      <a class="wordmark" href="#top" aria-label="K!SH home">K!SH<span class="wordmark-dot">.</span></a>
+      <a class="wordmark" href="#top" aria-label="K!SH home">
+        <img class="wordmark-logo" src="/media/k1sh-white.png" alt="K!SH" />
+      </a>
       <nav aria-label="Main navigation">
         <a href="#about">ABOUT</a>
         <a href="#listen">LISTEN</a>
@@ -135,7 +137,9 @@ const mixes = Object.values(mixFiles)
     </main>
 
     <footer>
-      <a class="wordmark" href="#top">K!SH<span class="wordmark-dot">.</span></a>
+      <a class="wordmark" href="#top" aria-label="K!SH home">
+        <img class="wordmark-logo" src="/media/k1sh-white.png" alt="K!SH" />
+      </a>
       <span>© {new Date().getFullYear()} K!SH · DJ / PRODUCER</span>
       <div><a href={site.soundcloudUrl} target="_blank" rel="noreferrer">SOUNDCLOUD ↗</a><a href={site.instagramUrl} target="_blank" rel="noreferrer">INSTAGRAM ↗</a></div>
     </footer>
