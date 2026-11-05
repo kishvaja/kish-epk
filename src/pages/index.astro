@@ -1,7 +1,14 @@
 ---
 import site from '../content/site.json';
 const mixFiles = import.meta.glob('../content/mixes/*.json', { eager: true, import: 'default' });
-const mixes = Object.values(mixFiles).filter((mix) => mix.featured);
+const mixes = Object.values(mixFiles)
+  .filter((mix) => mix.featured)
+  .map((mix) => ({
+    ...mix,
+    soundcloudEmbed: mix.url?.includes('soundcloud.com')
+      ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(mix.url)}&color=%238b302f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`
+      : ''
+  }));
 import '../styles/global.css';
 
 const email = `mailto:${site.bookingEmail}?subject=${encodeURIComponent('K!SH booking enquiry')}`;
@@ -68,20 +75,21 @@ const email = `mailto:${site.bookingEmail}?subject=${encodeURIComponent('K!SH bo
           <h2>THE SOUND<br /><em>OF K!SH.</em></h2>
           <p>Selected mixes and productions, bringing together South Asian musical identity and contemporary club sounds.</p>
         </div>
-        {mixes.map((mix, index) => {
-          const soundcloudEmbed = mix.url?.includes('soundcloud.com')
-            ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(mix.url)}&color=%238b302f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`
-            : '';
-          return <div class="mix-card">
+        {mixes.map((mix, index) => (
+          <div class="mix-card">
             <div class="mix-art"><span>K!SH</span><small>SELECTED MIX / {String(index + 1).padStart(3, '0')}</small></div>
             <div class="mix-details">
               <p class="kicker">FEATURED DJ MIX</p>
               <h3>{mix.title}</h3>
               <p>{mix.description}</p>
-              {soundcloudEmbed ? <iframe title={`K!SH SoundCloud player — ${mix.title}`} width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src={soundcloudEmbed}></iframe> : <a class="arrow-link" href={mix.url} target="_blank" rel="noreferrer">LISTEN TO THE MIX ↗</a>}
+              {mix.soundcloudEmbed ? (
+                <iframe title={`K!SH SoundCloud player — ${mix.title}`} width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src={mix.soundcloudEmbed}></iframe>
+              ) : (
+                <a class="arrow-link" href={mix.url} target="_blank" rel="noreferrer">LISTEN TO THE MIX ↗</a>
+              )}
             </div>
-          </div>;
-        })}
+          </div>
+        ))}
         <p class="small-note">More mixes, edits and original productions coming soon.</p>
       </section>
 
