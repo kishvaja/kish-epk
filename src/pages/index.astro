@@ -1,12 +1,17 @@
 ---
 import site from '../content/site.json';
-import mix from '../content/mixes/featured-mix.json';
 import '../styles/global.css';
 
 const email = `mailto:${site.bookingEmail}?subject=${encodeURIComponent('K!SH booking enquiry')}`;
-const soundcloudEmbed = mix.url.includes('soundcloud.com')
-  ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(mix.url)}&color=%238b302f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`
-  : '';
+
+const mixFiles = import.meta.glob('../content/mixes/*.json', {
+  eager: true,
+  import: 'default'
+});
+
+const mixes = Object.values(mixFiles)
+  .filter((mix) => mix.featured === true && mix.url)
+  .sort((a, b) => (a.sort ?? 9999) - (b.sort ?? 9999));
 ---
 <!doctype html>
 <html lang="en">
@@ -70,16 +75,43 @@ const soundcloudEmbed = mix.url.includes('soundcloud.com')
           <h2>THE SOUND<br /><em>OF K!SH.</em></h2>
           <p>Selected mixes and productions, bringing together South Asian musical identity and contemporary club sounds.</p>
         </div>
-        <div class="mix-card">
-          <div class="mix-art"><span>K!SH</span><small>SELECTED MIX / 001</small></div>
-          <div class="mix-details">
-            <p class="kicker">FEATURED DJ MIX</p>
-            <h3>{mix.title}</h3>
-            <p>{mix.description}</p>
-            {soundcloudEmbed ? <iframe title="K!SH SoundCloud player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src={soundcloudEmbed}></iframe> : <a class="arrow-link" href={mix.url} target="_blank" rel="noreferrer">LISTEN TO THE MIX ↗</a>}
+{mixes.map((mix, index) => {
+  const soundcloudEmbed = mix.url.includes('soundcloud.com')
+    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(mix.url)}&color=%238b302f&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`
+    : '';
+
+  return (
+          <div class="mix-card">
+            <div class="mix-art">
+              <span>K!SH</span>
+              <small>SELECTED MIX / {String(index + 1).padStart(3, '0')}</small>
+            </div>
+            <div class="mix-details">
+              <p class="kicker">FEATURED DJ MIX</p>
+              <h3>{mix.title}</h3>
+              <p>{mix.description}</p>
+              {soundcloudEmbed ? (
+                <iframe
+                  title={`K!SH SoundCloud player - ${mix.title}`}
+                  width="100%"
+                  height="166"
+                  scrolling="no"
+                  frameborder="no"
+                  allow="autoplay"
+                  src={soundcloudEmbed}
+                ></iframe>
+              ) : (
+                <a class="arrow-link" href={mix.url} target="_blank" rel="noreferrer">
+                  LISTEN TO THE MIX ↗
+                </a>
+              )}
+            </div>
           </div>
-        </div>
+        );
+      })}
+      {mixes.length === 0 && (
         <p class="small-note">More mixes, edits and original productions coming soon.</p>
+      )}
       </section>
 
       <section class="experience section-grid" id="experience">
