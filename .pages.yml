@@ -44,6 +44,12 @@ content:
       - name: bookingStatement
         label: Booking call to action
         type: string
+      - name: experienceEyebrow
+        label: Experience strapline
+        type: string
+      - name: experienceHeadline
+        label: Experience headline
+        type: string
 
   - name: mixes
     label: DJ mixes
