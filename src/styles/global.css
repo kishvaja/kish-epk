@@ -5,5 +5,6 @@
 /* Keep the main navigation visible while scrolling */
 .site-header{position:sticky;top:0;z-index:1000}
 
-/* Match the Listen arrow to the Booking Enquiry arrow on mobile */
-@media(max-width:760px){.hero-actions .button span{font-size:10px}}
+
+/* Keep both hero CTA arrows consistent on every screen size */
+.hero-actions span{font-size:10px;line-height:1;font-variant-emoji:text}
