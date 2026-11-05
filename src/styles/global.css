@@ -7,4 +7,4 @@
 
 
 /* Give the Follow the Journey link a complete CTA border */
-.journey-cta{border:1px solid #8b625b;border-bottom:1px solid #8b625b;padding:13px 16px;}
+.journey-cta{margin-top:24px;border:1px solid rgba(234,229,220,.45);padding:17px 21px;background:transparent;color:var(--paper);}
