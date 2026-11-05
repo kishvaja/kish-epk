@@ -1,0 +1,86 @@
+media:
+  input: public/media
+  output: /media
+
+content:
+  - name: site
+    label: Artist profile
+    type: file
+    path: src/content/site.json
+    fields:
+      - name: artistName
+        label: Artist name
+        type: string
+      - name: tagline
+        label: Main headline
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: genres
+        label: Genres
+        type: string
+      - name: shortBio
+        label: Short biography
+        type: text
+      - name: longBio
+        label: Full biography
+        type: text
+      - name: bookingEmail
+        label: Booking email
+        type: string
+      - name: soundcloudUrl
+        label: SoundCloud profile or mix URL
+        type: string
+      - name: instagramUrl
+        label: Instagram URL
+        type: string
+      - name: heroImage
+        label: Hero image path
+        type: string
+      - name: pressPhoto
+        label: Press photo path
+        type: string
+      - name: bookingStatement
+        label: Booking call to action
+        type: string
+
+  - name: mixes
+    label: DJ mixes
+    type: collection
+    path: src/content/mixes
+    format: json
+    filename: "{primary}.json"
+    fields:
+      - name: title
+        label: Mix title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: url
+        label: SoundCloud or Mixcloud URL
+        type: string
+      - name: featured
+        label: Feature this mix
+        type: boolean
+
+  - name: events
+    label: Selected performances
+    type: collection
+    path: src/content/events
+    format: json
+    filename: "{primary}.json"
+    fields:
+      - name: event
+        label: Event or venue
+        type: string
+      - name: detail
+        label: Short detail
+        type: string
+      - name: year
+        label: Year
+        type: string
+      - name: sort
+        label: Sort order
+        type: number
